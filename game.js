@@ -5,13 +5,32 @@ var level = 0;
 
 //things that happen when you click on buttons
 $(".btn").on("click", function() {
-    var userChosenColour = this.id;
+    handleButtonClick(this.id);
+});
+
+$(document).on("keydown", function(event) {
+    if (!gameStarted) {
+        handleGameStart();
+    }
+});
+
+$(document).on("click", function() {
+    if (!gameStarted) {
+        handleGameStart();
+    }
+});
+
+function handleGameStart() {
+    nextSequence();
+    gameStarted = true;
+}
+
+function handleButtonClick(userChosenColour) {
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
     animatePress(userChosenColour);
     checkAnswer(userClickedPattern.length - 1);
-});
-
+}
 //things function generetes you a random sequence and calls 2 functions that 
 // play sound and animate button
 function nextSequence() {
